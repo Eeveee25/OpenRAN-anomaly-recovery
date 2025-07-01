@@ -62,28 +62,6 @@ This repository presents a modular AI-driven framework for **anomaly detection**
 
 ---
 
-## 📁 Repository Structure
-
-📦 openran-anomaly-recovery/
-├── README.md
-├── environment.yml / requirements.txt
-├── data/
-│ └── sample_kpi.csv # Synthetic RAN KPI logs
-├── notebooks/
-│ ├── 01_openran_setup.ipynb # Setup & data generation
-│ └── 02_kpi_exploration.ipynb # Data visualization
-├── docs/
-│ └── kpi_reference.md # Definitions of key telecom KPIs
-├── models/
-│ └── anomaly_detector.py # ML logic for anomaly detection
-├── recovery/
-│ └── recovery_logic.py # SON-inspired remediation strategies
-└── dashboard/
-└── app.py # Streamlit dashboard (real-time view)
-
-
----
-
 ## 🧪 Sample KPIs (Reference)
 
 | KPI           | Description                              |
@@ -104,21 +82,9 @@ This repository presents a modular AI-driven framework for **anomaly detection**
 - `streamlit` or `dash`
 - `openrangym` (external repo integration)
 
-> All dependencies will be tracked in `requirements.txt` or `environment.yml`.
+> All dependencies will be tracked in `requirements.txt`.
 
 ---
-
-## 🗓️ Timeline (30 Days)
-
-| Week | Deliverables |
-|------|--------------|
-| 1    | Setup, KPI simulation, environment test |
-| 2    | Data ingestion, cleaning, normalization |
-| 3    | Anomaly detection ML models |
-| 4    | Remediation logic + dashboard prototype |
-
----
-
 ## 📌 Motivation
 
 Modern 5G networks are increasingly software-defined, data-rich, and complexity-driven. However, most AI/ML systems in telecom remain siloed in R&D. This project bridges the gap between **simulation** and **real-world field logic**, enabling future-ready telecom engineers to build, test, and demonstrate intelligent, scalable, and autonomous network solutions.
