@@ -72,22 +72,6 @@ The project aims to empower network operators with intelligent, scalable, and au
 ### 3️⃣ Compensation via Antenna Tilting
 - Optimization logic for tilt angle change based on degradation cause
 - Scenario simulation to test effectiveness
-
-  <details> <summary>📊 Click to view system architecture</summary>
-mermaid
-Copy
-Edit
-graph TD
-    A[Raw KPI / Alarm / Config Data] --> B[Data Preprocessing]
-    B --> C[KPI Correlation Analysis]
-    B --> D1[Outage Detection (RF, IF, XGB)]
-    B --> D2[Degradation Classification (SVM, KNN, NN)]
-    D1 --> E[Outage Flag + Severity]
-    D2 --> E
-    E --> F[Antenna Tilt Compensation]
-    E --> G[Performance Dashboard (Streamlit)]
-</details>
-
 ---
 
 ## 📈 Results & Performance
