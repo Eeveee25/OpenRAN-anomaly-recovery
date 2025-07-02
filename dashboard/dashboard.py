@@ -31,13 +31,30 @@ kpi_cols = [
     "AVERAGECQI",
     "DLPRBUTILISATION"
 ]
+# Drop null timestamps
+df = df.dropna(subset=["Time"])
 
-# --- Sidebar Controls ---
-st.sidebar.header("⚙️ Dashboard Controls")
-selected_kpi = st.sidebar.selectbox("📌 Select Primary KPI", kpi_cols)
-selected_multi = st.sidebar.multiselect("📊 Compare Multiple KPIs", kpi_cols, default=kpi_cols[:3])
-date_range = st.sidebar.slider("📅 Select Date Range", min_value=df['Time'].min().date(), max_value=df['Time'].max().date(), value=(df['Time'].min().date(), df['Time'].max().date()))
-auto_refresh = st.sidebar.checkbox("🔁 Auto Refresh Every 60s", value=False)
+# Ensure Time is datetime and sorted
+df["Time"] = pd.to_datetime(df["Time"])
+df = df.sort_values("Time")
+
+# Handle edge case: not enough unique dates
+unique_dates = df["Time"].dt.date.unique()
+if len(unique_dates) < 2:
+    st.error("📅 Not enough date data to generate a slider. Please check your Excel file.")
+    st.stop()
+
+# Safe default range
+default_start = unique_dates[0]
+default_end = unique_dates[-1]
+
+date_range = st.sidebar.slider(
+    "📅 Select Date Range",
+    min_value=default_start,
+    max_value=default_end,
+    value=(default_start, default_end),
+    format="YYYY-MM-DD"
+)
 
 if auto_refresh:
     st.experimental_rerun()
