@@ -12,25 +12,22 @@ st.set_page_config("📊 NetSage KPI Dashboard", layout="wide", initial_sidebar_
 # --- Load & Prepare Data ---
 @st.cache_data
 def load_data():
-    data_path = os.path.join(os.path.dirname(__file__), "Data.xlsx")
-    df = pd.read_excel(data_path, sheet_name="Data", skiprows=1)
-    df = df.reset_index().rename(columns={"index": "Time"})
-    df["Time"] = pd.to_datetime(df["Time"])
-    return df
+    import os
 
-@st.cache_data
-def load_data():
+    # Path to the Excel file
     data_path = os.path.join(os.path.dirname(__file__), "Data.xlsx")
-    
-    # Load the Excel data, skipping header row
-    df = pd.read_excel(data_path, sheet_name="Data", skiprows=1)
 
-    # Rename first column as 'Time' explicitly
-    if df.columns[0] != "Time":
-        df.rename(columns={df.columns[0]: "Time"}, inplace=True)
-    
-    # Ensure 'Time' is datetime type and drop invalid ones
+    # Read both headers (top one is description, bottom one is technical)
+    df = pd.read_excel(data_path, sheet_name="Data", skiprows=0, header=[0, 1])
+
+    # Flatten MultiIndex columns into a single line (prefer technical names)
+    df.columns = [b if isinstance(b, str) and b.strip() else a for a, b in df.columns]
+
+    # Rename first column to 'Time' and convert to datetime
+    df.rename(columns={df.columns[0]: "Time"}, inplace=True)
     df["Time"] = pd.to_datetime(df["Time"], errors="coerce")
+
+    # Drop invalid/missing times
     df = df.dropna(subset=["Time"])
     df = df.sort_values("Time")
 
