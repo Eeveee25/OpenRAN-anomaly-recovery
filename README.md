@@ -1,111 +1,97 @@
-NetSage: AI-Driven Telecom Cell Outage and Network Degradation Detection
-Project Overview
-This project presents an advanced machine learning framework designed for proactive detection and classification of cell outages and network degradations within telecom networks. By analyzing a rich set of network Key Performance Indicators (KPIs), alarm logs, and traffic data, the system identifies anomalies affecting cell performance. Additionally, it proposes optimized recovery actions such as antenna tilting to maintain network reliability and service quality.
+# 📡 SignalIQ: AI-Powered Detection of Cellular Network Faults
 
-This solution aims to empower network operators with intelligent, automated monitoring tools to enhance operational efficiency and reduce service disruptions.
+## 🧾 Project Overview
 
-Objectives
-Accurately detect cell outages in live telecom network environments using anomaly detection algorithms.
+**NetSage** is an advanced machine learning framework engineered to proactively detect **cell outages** and **network degradation events** in telecom infrastructures. By analyzing diverse datasets—such as KPIs, alarms, and antenna configuration data—NetSage can identify anomalies affecting cell performance and recommend corrective strategies like **antenna tilt optimization**.
 
-Classify diverse degradation types, including coverage loss, interference, hardware failures, and congestion-related issues.
+The project aims to empower network operators with intelligent, scalable, and automated tools that improve operational awareness, accelerate root cause analysis, and minimize service disruptions across radio access networks (RAN).
 
-Develop an adaptive antenna tilt compensation strategy that mitigates the negative impacts of detected outages and degradations.
+---
 
-Automate the entire detection and classification process leveraging machine learning techniques for scalable deployment.
+## 🎯 Objectives
 
-Perform temporal pattern analysis to capture sequential KPI behaviors indicative of network health trends.
+- 📡 Detect cell outages in live telecom environments using anomaly detection models.
+- 🛠 Classify network degradation types including:
+  - Signal coverage loss
+  - Hardware malfunction
+  - External interference
+  - Core/Backhaul congestion
+- 📈 Automate the fault detection workflow using supervised and unsupervised ML techniques.
+- 🎛 Recommend dynamic antenna tilting adjustments as a compensation mechanism.
+- 📊 Perform correlation and importance analysis of KPI metrics.
+- 🔍 Capture temporal trends using time-series modeling techniques.
+- 🧠 Minimize false positives/negatives using ensemble and hybrid models.
+- 🔗 Enable real-time inference for integration into network monitoring tools.
+- 📉 Explore deep sequential learning (LSTM, GRU) for multi-step prediction.
+- 🌦 Integrate contextual/environmental data to enrich fault analysis.
 
-Conduct feature importance and KPI correlation analysis to understand the impact of various network metrics on performance degradation.
+---
 
-Design a system capable of minimizing false alarms and improving overall prediction reliability.
+## 📊 Dataset & Feature Engineering
 
-Prepare the groundwork for real-time monitoring integration, enabling live network anomaly alerts and decision support.
+### 📥 Data Sources
+- **Signal KPIs**: RSRP, RSSI, SINR
+- **Quality Metrics**: Call Drop Rate, Handover Success Rate
+- **Event Logs**: Fault alarms, system events
+- **Traffic Data**: Load, peak traffic hours, congestion events
+- **Antenna Configuration**: Tilt, azimuth, height
 
-Explore advanced sequential modeling techniques such as Recurrent Neural Networks (LSTM, GRU) to enhance prediction of outages with temporal dependencies.
+### 🛠 Feature Engineering
+- Statistical aggregations: mean, std, moving average
+- Signal normalization and smoothing
+- Time-window slicing for temporal dependency
+- Outlier detection (IQR, Z-score)
+- Event alignment with KPI anomalies
+- Label encoding for multi-class classification
 
-Expand dataset robustness by incorporating environmental and weather factors to better contextualize network performance variations.
+---
 
-Dataset & Features
-Data Sources:
-Network KPIs: RSRP (Reference Signal Received Power), RSSI (Received Signal Strength Indicator), SINR (Signal to Interference plus Noise Ratio)
+## 🧠 Methodology
 
-Call Drop Rate, Handover Success Rate
+### 1️⃣ Data Preprocessing
+- Handle missing values and KPI gaps
+- Normalize signal KPIs for uniform scale
+- Merge alarms with KPI timelines
+- Generate lag features and rolling statistics
 
-Cell Alarms and Event Logs detailing fault occurrences
+### 2️⃣ ML Models
+- **Outage Detection**:  
+  - Random Forest  
+  - Isolation Forest  
+  - XGBoost
 
-Traffic Volume and Coverage Maps
+- **Degradation Classification**:  
+  - SVM (One-vs-All / One-vs-One)  
+  - Feedforward Neural Network  
+  - KNN (baseline)
 
-Antenna Configuration parameters such as tilt and azimuth
+- **KPI Correlation Analysis**:  
+  - Pearson & Spearman coefficients  
+  - SHAP-based feature importance
 
-Feature Engineering:
-Extraction of temporal features and moving averages from KPI time series
+### 3️⃣ Compensation via Antenna Tilting
+- Optimization logic for tilt angle change based on degradation cause
+- Scenario simulation to test effectiveness
 
-Detection of outliers and anomalies via statistical techniques
+---
 
-Aggregation of multi-source data streams for unified input vectors
+## 📈 Results & Performance
 
-Identification of congestion and interference patterns from KPI trends
+| Metric                           | Score       |
+|----------------------------------|-------------|
+| Outage Detection Accuracy        | 92%         |
+| Degradation Classification F1    | 88%         |
+| False Alarm Rate Reduction       | 25%         |
 
-Encoding time-dependent features to facilitate sequential learning
+---
 
-Methodology
-1. Data Preprocessing
-Rigorous handling of missing or inconsistent data
+## 🚀 Future Roadmap
 
-Outlier detection and filtering using statistical methods (e.g., IQR)
-
-Time alignment and synchronization of KPI measurements
-
-Data augmentation to enhance training robustness
-
-2. Machine Learning Models
-Outage Detection: Utilization of Random Forest, Isolation Forest, and XGBoost for robust anomaly identification.
-
-Degradation Classification: Multi-class classification with Support Vector Machines (SVM) in both one-vs-all (OVA) and one-vs-one (OVO) strategies, complemented by Neural Networks.
-
-KPI Correlation Analysis: Quantitative evaluation of feature importances to interpret model decisions.
-
-3. Compensation via Antenna Tilting
-Implementation of an optimization algorithm to adjust antenna parameters dynamically.
-
-Simulation of recovery scenarios and validation of mitigation effectiveness.
-
-Results & Performance
-Metric	Score
-Outage Detection Accuracy	~92%
-Degradation Classification F1 Score	~88%
-False Alarm Rate Reduction	25%
-
-These results indicate a high degree of accuracy and reliability, positioning the model as an effective tool for network operation centers.
-
-Future Work
-Integration of real-time monitoring dashboards for operational deployment.
-
-Incorporation of deep learning architectures (LSTM, GRU, Transformers) for improved sequential anomaly detection.
-
-Enrichment of datasets with environmental data such as weather, temperature, and terrain information.
-
-Development of an API layer for scalable deployment and integration with existing network management systems.
-
-Exploration of reinforcement learning methods for automated network optimization.
-
-Installation & Usage
-Prerequisites
-Python 3.7+
-
-Required Python libraries (install via requirements.txt):
-
-bash
-Copy
-Edit
-pip install -r requirements.txt
-Key dependencies include:
-
-numpy, pandas, scikit-learn, xgboost
-
-matplotlib, seaborn for visualization
-
-tensorflow or pytorch (optional for deep learning modules)
+- 🖥 Integrate real-time monitoring dashboard (e.g., Streamlit, Grafana)
+- 🧬 Extend to LSTM/GRU-based sequence models
+- 🌦 Add external data (weather, location topology)
+- 🔌 Build REST API layer for integration with OSS/BSS tools
+- 🤖 Experiment with Reinforcement Learning for automated tilt control
 
 ---
 
@@ -116,4 +102,3 @@ tensorflow or pytorch (optional for deep learning modules)
 **LinkedIn**: *srishtichawla2504*  
 **GitHub**: *Add repo link once live*
 
----
