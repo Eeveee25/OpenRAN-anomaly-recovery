@@ -18,7 +18,24 @@ def load_data():
     df["Time"] = pd.to_datetime(df["Time"])
     return df
 
-df = load_data()
+@st.cache_data
+def load_data():
+    data_path = os.path.join(os.path.dirname(__file__), "Data.xlsx")
+    
+    # Load the Excel data, skipping header row
+    df = pd.read_excel(data_path, sheet_name="Data", skiprows=1)
+
+    # Rename first column as 'Time' explicitly
+    if df.columns[0] != "Time":
+        df.rename(columns={df.columns[0]: "Time"}, inplace=True)
+    
+    # Ensure 'Time' is datetime type and drop invalid ones
+    df["Time"] = pd.to_datetime(df["Time"], errors="coerce")
+    df = df.dropna(subset=["Time"])
+    df = df.sort_values("Time")
+
+    return df
+
 
 # --- KPI list ---
 kpi_cols = [
